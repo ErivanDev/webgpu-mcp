@@ -1,11 +1,20 @@
-FROM python:3.12-alpine
-
-RUN adduser -D -u 1000 appuser
+FROM node:20-alpine AS build
 
 WORKDIR /app
-COPY --chown=1000:1000 dist ./dist
 
-USER 1000
-EXPOSE 7860
+COPY package*.json ./
 
-CMD ["python", "-m", "http.server", "7860", "--bind", "0.0.0.0", "--directory", "/app/dist"]
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+
+FROM nginx:alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

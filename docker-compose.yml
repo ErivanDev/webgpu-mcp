@@ -1,0 +1,47 @@
+services:
+  lfm2-mcp:
+    build:
+      context: ./lfm2-mcp
+    container_name: lfm2-mcp
+    ports:
+      - "7860:80"
+    depends_on:
+      - mcp-server
+
+  api:
+    build:
+      context: ./mcp-user-crud
+    container_name: user-api
+    command:
+      uvicorn api:app --host 0.0.0.0 --port 8090
+    ports:
+      - "8090:8090"
+
+  mcp-server:
+    build:
+      context: ./mcp-user-crud
+    container_name: mcp-server
+    environment:
+      API_URL: http://api:8090
+    command:
+      python mcp_server.py
+    ports:
+      - "8765:8765"
+    depends_on:
+      - api
+
+  # ollama:
+  #   image: ollama/ollama
+  #   container_name: ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama:/root/.ollama
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - capabilities: [gpu]
+
+# volumes:
+#   ollama:

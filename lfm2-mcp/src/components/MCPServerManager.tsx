@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { discoverOAuthEndpoints, startOAuthFlow } from "../services/oauth";
 import { Plus, Server, Wifi, WifiOff, Trash2, TestTube } from "lucide-react";
 import { useMCP } from "../hooks/useMCP";
@@ -40,6 +40,32 @@ export const MCPServerManager: React.FC<MCPServerManagerProps> = ({
       type: "bearer",
     },
   });
+
+  useEffect(() => {
+    const initializeDefaultServer = async () => {
+      if (Object.keys(mcpState.servers).length > 0) return;
+
+      const defaultServer: MCPServerConfig = {
+        id: "default-server",
+        name: "Default MCP Server",
+        url: "http://localhost:8765/mcp",
+        enabled: true,
+        transport: "streamable-http",
+        auth: {
+          type: "bearer",
+          token: "",
+        },
+      };
+
+      try {
+        await addServer(defaultServer);
+      } catch (err) {
+        console.error("Erro ao adicionar servidor padrão:", err);
+      }
+    };
+
+    initializeDefaultServer();
+  }, [mcpState.servers, addServer]);
 
   if (!isOpen) return null;
 

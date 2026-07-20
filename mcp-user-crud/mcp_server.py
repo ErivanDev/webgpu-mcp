@@ -9,7 +9,7 @@ Run:
 
 The REST API is expected to be running at:
 
-    http://127.0.0.1:8000
+    http://0.0.0.0:8090
 """
 
 from __future__ import annotations
@@ -24,11 +24,11 @@ from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
+API_URL = os.getenv("API_URL", "http://0.0.0.0:8090")
 
 mcp = FastMCP(
     "user-registration",
-    host="127.0.0.1",
+    host="0.0.0.0",
     port=8765,
 )
 
@@ -162,7 +162,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -172,6 +172,6 @@ app.add_middleware(
 if __name__ == "__main__":
     uvicorn.run(
         app,
-        host="127.0.0.1",
+        host="0.0.0.0",
         port=8765,
     )

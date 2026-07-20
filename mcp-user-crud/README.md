@@ -102,7 +102,7 @@ Baixe o modelo usado pelo cliente:
 ollama pull llama3.1
 ```
 
-Garanta que o serviço do Ollama esteja rodando (por padrão em `http://127.0.0.1:11434`).
+Garanta que o serviço do Ollama esteja rodando (por padrão em `http://0.0.0.0:11434`).
 
 Não é necessária nenhuma chave de API (`OPENAI_API_KEY` ou similar) — todo o processamento do modelo ocorre localmente.
 
@@ -113,13 +113,13 @@ Não é necessária nenhuma chave de API (`OPENAI_API_KEY` ou similar) — todo 
 ### 1) Inicie a API
 
 ```bash
-uvicorn api:app --reload --port 8000
+uvicorn api:app --reload --port 8090
 ```
 
 A API ficará disponível em:
 
 ```
-http://127.0.0.1:8000
+http://0.0.0.0:8090
 ```
 
 ---
@@ -133,10 +133,10 @@ python mcp_server.py
 O servidor MCP ficará disponível em:
 
 ```
-http://127.0.0.1:8765/mcp
+http://0.0.0.0:8765/mcp
 ```
 
-Por padrão, ele se comunica com a API REST em `http://127.0.0.1:8000`. Isso pode ser alterado com a variável de ambiente `API_URL`.
+Por padrão, ele se comunica com a API REST em `http://0.0.0.0:8090`. Isso pode ser alterado com a variável de ambiente `API_URL`.
 
 ---
 

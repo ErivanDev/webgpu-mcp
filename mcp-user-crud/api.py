@@ -6,7 +6,7 @@ It is just a REST service that manages users.
 
 Run:
 
-    uvicorn api:app --reload --port 8000
+    uvicorn api:app --reload --port 8090
 """
 
 from typing import Optional

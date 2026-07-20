@@ -62,7 +62,7 @@ pergunte ao usuário.
 
 async def main():
     async with streamablehttp_client(
-        "http://127.0.0.1:8765/mcp"
+        "http://0.0.0.0:8765/mcp"
     ) as (read, write, _):
         async with ClientSession(
             read,
