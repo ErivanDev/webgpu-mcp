@@ -48,7 +48,7 @@ export const MCPServerManager: React.FC<MCPServerManagerProps> = ({
       const defaultServer: MCPServerConfig = {
         id: "default-server",
         name: "Default MCP Server",
-        url: "http://localhost:8765/mcp",
+        url: "http://10.101.53.244:8765/mcp",
         enabled: true,
         transport: "streamable-http",
         auth: {

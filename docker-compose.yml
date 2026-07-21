@@ -4,7 +4,7 @@ services:
       context: ./lfm2-mcp
     container_name: lfm2-mcp
     ports:
-      - "7860:80"
+    - "7860:443"
     depends_on:
       - mcp-server
 
